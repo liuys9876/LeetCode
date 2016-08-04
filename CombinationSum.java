@@ -3,11 +3,13 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class CombinationSum {
 
 	public static void main(String[] args) {
-		int[] candidates={2,3,6,7};
+		int[] candidates={8,3,2,3,6,3,7};
 		int target=7;
 		Solution39 solu = new Solution39();
 		System.out.println(solu.combinationSum(candidates,target));
@@ -20,9 +22,54 @@ public class CombinationSum {
 
 class Solution39 {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    	//»•÷ÿ≈≈–Ú
+    	Set<Integer> s = new TreeSet<Integer>();
+    	for(int i : candidates)
+    	{
+    		s.add(i);
+    	}
+    	int[] can = new int[s.size()];
+    	int j=0;
+    	for(int i :s)
+    	{
+    		can[j++]=i;
+    	}
+    	
+    	
     	List<List<Integer>> ans = new ArrayList<List<Integer>>();
     	List<Integer>  temp = new ArrayList<Integer>();
-    	Arrays.sort(candidates);
+    	int MaxIntPoint = can.length-1;
+    	int Point = MaxIntPoint;
+    	int sum=0;
+    	while(MaxIntPoint>=0)
+    	{
+    	
+    		if(temp.isEmpty())
+    		{
+    			if(can[MaxIntPoint]>target)
+    			{
+    				MaxIntPoint--;
+    				Point--;
+    			}
+    			else if(can[MaxIntPoint]==target)
+    			{
+    				temp.add(can[MaxIntPoint]);
+    				ans.add(temp);
+    				temp.clear();
+    				MaxIntPoint--;
+    				Point--;
+    			}
+    			else
+    			{
+    				temp.add(can[MaxIntPoint]);
+    				sum+=can[MaxIntPoint];
+    			}
+    		}
+    		else
+    		{
+    			if(sum+can[Point)
+    		}
+    	}    	
     	return ans;
     }
     
