@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+
 public class CombinationSum {
 
 	public static void main(String[] args) {
@@ -37,81 +38,95 @@ class Solution39 {
     	
     	
     	List<List<Integer>> ans = new ArrayList<List<Integer>>();
-    	List<Integer>  temp = new ArrayList<Integer>();
-    	int MaxIntPoint = can.length-1;
-    	int Point = MaxIntPoint;
-    	int sum=0;
-    	while(MaxIntPoint>=0)
+    	List<Integer>  temp = new ArrayList<Integer>();//记录可能成为和为target的数组
+    	List<Integer>  tempPoint = new ArrayList<Integer>();//记录temp中每个元素在candidates的位置
+    	int len = can.length;
+    	if(len==0)
     	{
-    	
-    		if(temp.isEmpty())
+    		return ans;
+    	}
+    	int sum = 0; //临时记录temp和值
+    	if(temp.isEmpty())
+    	{
+    		temp.add(can[len-1]);
+    		sum+=can[len-1];
+    		tempPoint.add(len-1);
+    	}
+    	while(1==1){
+    		int tempSizeSub = temp.size()-1;
+    		int tempPointSizeSub = tempPoint.size()-1;
+    	if(sum<target)
+    	{
+    		temp.add(temp.get(tempSizeSub));
+    		sum+=temp.get(tempSizeSub);
+    		tempPoint.add(tempPoint.get(tempPointSizeSub));
+    	}
+    	else 
+    	{
+    		if(sum==target)
     		{
-    			if(can[MaxIntPoint]>target)
+    			List<Integer> tempAnsAdd = new ArrayList<Integer>(temp);
+    			ans.add(tempAnsAdd);
+    		
+    		}
+    		for(int i =tempPointSizeSub;i>=0;i--)
+    		{
+    			tempSizeSub = temp.size()-1;
+    			tempPointSizeSub = tempPoint.size()-1;
+    			if(tempPoint.get(i)>0)
     			{
-    				MaxIntPoint--;
-    				Point--;
-    			}
-    			else if(can[MaxIntPoint]==target)
-    			{
-    				temp.add(can[MaxIntPoint]);
-    				ans.add(temp);
-    				temp.clear();
-    				MaxIntPoint--;
-    				Point--;
+    				int pointNew = tempPoint.get(tempPointSizeSub)-1;
+    				sum-=can[pointNew+1];
+        			sum+=can[pointNew];
+        			temp.remove(tempSizeSub);
+        			tempPoint.remove(tempPointSizeSub);
+        			temp.add(can[pointNew]);
+        			tempPoint.add(pointNew);
+        			break;
     			}
     			else
     			{
-    				temp.add(can[MaxIntPoint]);
-    				sum+=can[MaxIntPoint];
+    				if(i==0)
+    				{
+    					return ans;
+    				}else
+    				{
+    					sum-=can[0];
+    					temp.remove(tempSizeSub);
+    					tempPoint.remove(tempPointSizeSub);
+    				}
     			}
+    			
     		}
-    		else
-    		{
-    			if(sum+can[Point)
-    		}
-    	}    	
-    	return ans;
+    	}
+    	}
     }
     
     
-    private List<List<Integer>> chargeSum (int[] candidates, int target,List<List<Integer>> ansList,int sum,List<Integer> tempList,int startPoint,int endPoint)
-    {
-    	if(startPoint<0)
-    	{
-    		
-    	}else
-    	{
-    	if(sum+candidates[startPoint]<target)
-    	{
-    		sum+=candidates[startPoint];
-    		tempList.add(candidates[startPoint]);
-    	ansList=chargeSum(candidates, target, ansList, sum, tempList,startPoint,endPoint);	
-    	}
-    	else if(sum+candidates[startPoint]==target)
-    	{
-    		for(int i=startPoint-1;i>0;i--)
-    		{
-    		if(candidates[i]!=candidates[startPoint])
-    		{
-    			sum-=candidates[startPoint];
-    			tempList.add(candidates[startPoint]);
-    			ansList.add(tempList);
-    			tempList.remove(tempList.size()-1);
-    			sum+=candidates[i];
-    			tempList.add(candidates[i]);
-    			startPoint=i-1;
-    			ansList=chargeSum(candidates, target, ansList, sum, tempList, startPoint, endPoint);
-    			break;
-    		}
-    		}
-    		
-    		
-    	}
-    	else
-    	{
-    		
-    	}
-    	}
-    	return ansList;
-    }
 }
+/*
+class Solution39 {  
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();  
+        int[] cans = {};  
+          
+        public List<List<Integer>> combinationSum(int[] candidates, int target) {  
+            this.cans = candidates;  
+            Arrays.sort(cans);  
+            backTracking(new ArrayList(), 0, target);  
+            return ans;  
+        }  
+          
+        public void backTracking(List<Integer> cur, int from, int target) {  
+            if (target == 0) {  
+                List<Integer> list = new ArrayList<Integer>(cur);  
+                ans.add(list);  
+            } else {  
+                for (int i = from; i < cans.length && cans[i] <= target; i++) {  
+                    cur.add(cans[i]);  
+                    backTracking(cur, i, target - cans[i]);  
+                    cur.remove(new Integer(cans[i]));  
+                }  
+            }  
+        }  
+    } 
+    */ 
