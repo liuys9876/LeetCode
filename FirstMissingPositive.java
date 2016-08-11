@@ -10,8 +10,10 @@ public class FirstMissingPositive {
 		// TODO Auto-generated method stub
 			int[] nums={3,3,2,2,1,1};
 			Solution41 solu = new Solution41();
+			long timestart=System.currentTimeMillis();
 			System.out.println(solu.firstMissingPositive(nums));
-
+			long timeend = System.currentTimeMillis();
+			System.out.println("s:"+timestart+"e:"+timeend+"t:"+(timeend-timestart));
 	}
 
 }
