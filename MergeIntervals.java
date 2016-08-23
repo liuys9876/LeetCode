@@ -18,15 +18,7 @@ public class MergeIntervals {
 		// TODO Auto-generated method stub
 		List<Interval> intervals = new ArrayList<Interval>();
 		Interval temp1=new Interval(2,3);
-		Interval temp2=new Interval(5,5);
-		Interval temp3=new Interval(2,2);
-		Interval temp4=new Interval(3,4);
-		Interval temp5=new Interval(3,4);
 		intervals.add(temp1);
-		intervals.add(temp2);
-		intervals.add(temp3);
-		intervals.add(temp4);
-		intervals.add(temp5);
 		Solution56 solu = new Solution56();
 		long timestart = System.currentTimeMillis();
 		System.out.println(solu.merge(intervals));
